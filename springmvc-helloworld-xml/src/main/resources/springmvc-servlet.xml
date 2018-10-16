@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 默认配置的HandlerMapping和HandlerAdaptor-->
+    <!-- 默认配置的HandlerMapping和HandlerAdaptor在DispatcherServlet.properties中，也包括下面两个-->
     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 

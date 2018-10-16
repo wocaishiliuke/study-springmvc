@@ -31,15 +31,6 @@
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                            <goal>shutdown</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <port>9090</port>
                     <!-- 这样访问不需要加项目名了 -->

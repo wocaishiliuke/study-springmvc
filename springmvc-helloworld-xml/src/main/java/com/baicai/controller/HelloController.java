@@ -12,7 +12,7 @@ public class HelloController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("msg1", "hello world!");
+        mv.addObject("msg", "hello world!");
         mv.setViewName("hello");
         return mv;
     }
