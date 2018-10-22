@@ -1,17 +1,21 @@
 package com.baicai.controller;
 
 import com.baicai.pojo.User;
+import com.baicai.pojo.UserDTO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * 用于测试参数接收
@@ -203,6 +207,37 @@ public class ParamReceiveController {
      */
     @RequestMapping("/hello4")
     public String hello4(@RequestParam("username") String msg) {
+        return "hello";
+    }
+
+    /**
+     * 8.1 测试List接收
+     * @return
+     */
+    @RequestMapping("/submitList")
+    public String submitList() {
+        return "submitList";
+    }
+    @RequestMapping("/testList")
+    //public String testList(String username, String password, Boolean isMarry, String[] hobby/*List<String> hobby*/) {
+    public String testList(UserDTO user, HttpServletRequest request) {
+        System.out.println(user.toString());
+        System.out.println(getRequestBody(request));
+        /*System.out.println(username + " = " + password + " = " + isMarry);
+        if (hobby != null && hobby.length > 0) {
+            for(String h : hobby) {
+                System.out.println(h);
+            }
+        }*/
+        System.out.println("--------请求参数----------");
+
+        Enumeration parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String element = (String) parameterNames.nextElement();
+            String value = request.getParameter(element);
+            System.out.println(element + "=" + value);
+        }
+        System.out.println("-------------------------");
         return "hello";
     }
 }
