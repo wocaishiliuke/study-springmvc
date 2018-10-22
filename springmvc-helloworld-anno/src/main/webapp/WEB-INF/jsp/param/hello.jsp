@@ -8,12 +8,6 @@
     <title>Insert title here</title>
 </head>
 <body>
-    <%--<h1 style="color:red;">${requestScope.msg}</h1>--%>
-    <%--<h1 style="color:red;">${user.username}--%>
-    </h1><h1 style="color:#76ff33;">${string}</h1>
-    ----
-    </h1><h1 style="color:#150bff;">${username}</h1>
-    ----
     </h1><h1 style="color:red;">${msg}</h1>
 </body>
 </html>

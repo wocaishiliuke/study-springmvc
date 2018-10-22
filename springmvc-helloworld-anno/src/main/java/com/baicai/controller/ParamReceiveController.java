@@ -10,28 +10,58 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import java.io.BufferedReader;
 import java.util.Enumeration;
-import java.util.Map;
 
 /**
  * 用于测试参数接收
  */
 @Controller
 @RequestMapping("/param")
+//@SessionAttributes("user")
+//@SessionAttributes(types = {User.class}, value = "user")
+//@SessionAttributes(types = {User.class}, value = {"user"})
 public class ParamReceiveController {
     private static final Log logger = LogFactory.getLog(ParamReceiveController.class);
 
+    /**
+     * 1.直接接收
+     * @param username
+     * @param id
+     * @return
+     */
     @RequestMapping("/test1")
-    public String test1(/*@RequestParam(value = "username", required = false) String username,
-                       @RequestParam(value = "id", required = false) Long id,*/
-                        /*@RequestBody()*/ User user1, Model model, HttpServletRequest request) {
-        System.out.println(user1.toString());
-        User user = new User();
-        /*user.setId(id);
-        user.setUsername(username);*/
+    public String test1(String username, Long/*long*/ id) {
+        System.out.println(username + " --- " + id);
+        return "hello";
+    }
+
+    /**
+     * 2.bean接收
+     * @param user
+     * @return
+     */
+    @RequestMapping("/test2")
+    public String test2(User user) {
         System.out.println(user.toString());
-        model.addAttribute("msg", user.toString());
+        return "hello";
+    }
+
+    /**
+     * 3.测试@RequestParam和@RequestBody的使用
+     * @param request
+     * @return
+     */
+    @RequestMapping("/test3")
+    public String test3(@RequestParam(value = "username") String username,
+                        @RequestParam(value = "id") Long id
+                        /*@RequestBody() User user1*/, HttpServletRequest request) {
+        //System.out.println(user1.toString());
+        /*User user = new User();
+        user.setId(id);
+        user.setUsername(username);
+        System.out.println(user.toString());*/
+
         Enumeration headerNames = request.getHeaderNames();
         System.out.println("--------请求头----------");
         while (headerNames.hasMoreElements()) {
@@ -40,13 +70,10 @@ public class ParamReceiveController {
             System.out.println(k + "=" + v);
         }
         System.out.println("--------请求体----------");
-        Enumeration attributeNames = request.getAttributeNames();
-        while (attributeNames.hasMoreElements()) {
-            String k = (String) attributeNames.nextElement();
-            String v = request.getHeader(k);
-            System.out.println(k + "=" + v);
-        }
+        //使用@RequestParam或@RequestBody后，request.getReader就获取不到了，流只能读一次
+        System.out.println(getRequestBody(request));
         System.out.println("--------请求参数----------");
+
         Enumeration parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String element = (String) parameterNames.nextElement();
@@ -57,9 +84,28 @@ public class ParamReceiveController {
         return "hello";
     }
 
+    private String getRequestBody(final HttpServletRequest request) {
+        final StringBuilder builder = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            if (reader == null) {
+                logger.debug("Request body could not be read because it's empty.");
+                return null;
+            }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+            return builder.toString();
+        } catch (final Exception e) {
+            logger.trace("Could not obtain the saml request body from the http request", e);
+            return null;
+        }
+    }
+
+
     /**
-     * 测试@RequestHeader
-     * 注：不加HttpServletResponse做形参，会把testHeader作为视图名，报404
+     * 4.测试@RequestHeader
+     * 注：不加HttpServletResponse做形参，会把param/testHeader作为视图名，报404
      * @param agent
      * @param accepts
      */
@@ -70,16 +116,93 @@ public class ParamReceiveController {
         for (String accept : accepts) {
             logger.info(accept);
         }
-
     }
 
     /**
-     * 测试@CookieValue
+     * 5.测试@CookieValue
      * @param sessionId
      */
     @RequestMapping(value = "/testCookie")
     @ResponseStatus(HttpStatus.OK)
     public void testCookie(@CookieValue(value = "JSESSIONID", defaultValue = "") String sessionId) {
         logger.info("JSESSIONID:" + sessionId);
+    }
+
+
+    /**
+     * 6.测试@SessionAttributes
+     */
+    //跳转到register注册页（页面都走服务器端页面）
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "register";
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        //要先放入Model，才能被放入Session
+        model.addAttribute("user", user);
+        return "registerSuccess";
+    }
+
+
+    /**
+     * 7.1 测试@ModelAttribute("")注释有返回值的方法
+     */
+    /*@ModelAttribute("msg")
+    public String modelAttribute1(@RequestParam("username") String username) {
+        return username;
+    }*/
+    /**
+     * 7.2 测试@ModelAttribute注释有返回值的方法
+     */
+    /*@ModelAttribute
+    //存入Model中的key是user
+    public User modelAttribute2(@RequestParam("username") String username) {
+        return find(username);
+    }
+    private User find(String username) {
+        //模拟查找用户
+        User user = new User();
+        user.setUsername(username);
+        return user;
+    }*/
+    /*@ModelAttribute
+    //存入Model中的key是string
+    public String modelAttribute2(@RequestParam("username") String username) {
+        return username;
+    }*/
+
+    /**
+     * 7.3 测试@ModelAttribute：注释void的方法
+     */
+    /*@ModelAttribute
+    public void modelAttribute3(@RequestParam("username") String username, Model model) {
+        model.addAttribute("msg", username);
+    }*/
+
+    @RequestMapping("/login1")
+    public String login1() {
+        return "hello";
+    }
+
+    /**
+     * 7.4 测试@ModelAttribute+@RequestMapping
+     * 相当于Model
+     */
+    @RequestMapping("/hello")
+    @ModelAttribute("msg")
+    public String login2(@RequestParam("username") String username) {
+        return username + "123";
+    }
+
+    /**
+     * 7.5 测试@ModelAttribute注释形参
+     */
+    @RequestMapping("/hello4")
+    public String hello4(@RequestParam("username") String msg) {
+        return "hello";
     }
 }
