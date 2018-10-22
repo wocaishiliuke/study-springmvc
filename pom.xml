@@ -18,6 +18,7 @@
     <modules>
         <module>springmvc-helloworld-xml</module>
         <module>springmvc-helloworld-anno</module>
+        <module>springmvc-param-receive</module>
     </modules>
 
 </project>
