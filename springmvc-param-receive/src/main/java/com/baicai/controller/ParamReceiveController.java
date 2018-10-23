@@ -219,9 +219,9 @@ public class ParamReceiveController {
         return "submitList";
     }
     @RequestMapping("/testList")
-    //public String testList(String username, String password, Boolean isMarry, String[] hobby/*List<String> hobby*/) {
+    //public String testList(HttpServletRequest request, String username, String password, Boolean isMarry, String[] hobby/*List<String> hobby*/) {
     public String testList(UserDTO user, HttpServletRequest request) {
-        System.out.println(user.toString());
+        //System.out.println(user.toString());
         System.out.println(getRequestBody(request));
         /*System.out.println(username + " = " + password + " = " + isMarry);
         if (hobby != null && hobby.length > 0) {

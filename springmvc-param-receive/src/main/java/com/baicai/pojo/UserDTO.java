@@ -27,12 +27,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Boolean getMarry() {
+    public Boolean getIsMarry() {
         return isMarry;
     }
 
-    public void setMarry(Boolean marry) {
-        isMarry = marry;
+    public void setIsMarry(Boolean isMarry) {
+        this.isMarry = isMarry;
     }
 
     public List<String> getHobby() {
