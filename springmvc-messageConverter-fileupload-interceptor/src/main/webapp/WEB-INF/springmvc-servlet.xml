@@ -5,13 +5,32 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 包扫描 -->
     <context:component-scan base-package="com.baicai.controller" />
-
-    <!-- 注解驱动(RequestMappingHandlerMapping、RequestMappingHandlerAdapter、JSON支持等) -->
     <mvc:annotation-driven/>
+    <!-- 注解驱动(RequestMappingHandlerMapping、RequestMappingHandlerAdapter、JSON支持等) -->
+    <!--<mvc:annotation-driven>
+        &lt;!&ndash; false表示不使用默认的MappingJackson2HttpMessageConverter &ndash;&gt;
+        <mvc:message-converters register-defaults="false">
+            &lt;!&ndash; 先显式配置默认的消息转换器 &ndash;&gt;
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            &lt;!&ndash; 配置fastJson中的消息转换器实现 &ndash;&gt;
+            <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        &lt;!&ndash; 一定先写text/html，否则IE环境会出现下载提示 &ndash;&gt;
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>-->
 
     <!--使用默认Servlet响应静态文件-->
     <mvc:default-servlet-handler/>

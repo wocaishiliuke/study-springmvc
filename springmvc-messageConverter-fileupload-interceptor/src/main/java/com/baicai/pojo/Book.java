@@ -10,6 +10,12 @@ public class Book {
         super();
     }
 
+    public Book(Integer id, String name, String author) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+    }
+
     public Integer getId() {
         return id;
     }
