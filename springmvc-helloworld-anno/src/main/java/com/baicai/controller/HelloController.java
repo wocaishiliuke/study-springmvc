@@ -2,6 +2,7 @@ package com.baicai.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -13,7 +14,7 @@ public class HelloController {
         return "hello";
     }*/
 
-    @RequestMapping(value = "/hello, method = RequestMethod.GET")
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public ModelAndView hello() {
         ModelAndView mv = new ModelAndView("hello");
         mv.addObject("msg", "Hello world!");
