@@ -8,7 +8,7 @@
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
     <!-- 配置controller -->
-    <bean name="/hello" class="com.baicai.HelloController"></bean>
+    <bean name="/hello" class="com.baicai.controller.elloController"></bean>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
