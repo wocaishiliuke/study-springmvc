@@ -19,7 +19,7 @@
         <module>springmvc-helloworld-xml</module>
         <module>springmvc-helloworld-anno</module>
         <module>springmvc-param-receive</module>
-        <module>springmvc-messageConverter-fileupload-interceptor</module>
+        <module>springmvc-messageConverter-staticFile</module>
     </modules>
 
 </project>

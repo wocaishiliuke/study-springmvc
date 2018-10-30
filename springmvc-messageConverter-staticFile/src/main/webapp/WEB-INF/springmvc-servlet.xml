@@ -9,8 +9,11 @@
 
     <!-- 包扫描 -->
     <context:component-scan base-package="com.baicai.controller" />
+
+    <!-- 注解驱动(RequestMappingHandlerMapping、RequestMappingHandlerAdapter、JSON/XML支持等) -->
     <mvc:annotation-driven/>
-    <!-- 注解驱动(RequestMappingHandlerMapping、RequestMappingHandlerAdapter、JSON支持等) -->
+
+    <!-- 注解驱动（自定义处理JSON消息转换器）-->
     <!--<mvc:annotation-driven>
         &lt;!&ndash; false表示不使用默认的MappingJackson2HttpMessageConverter &ndash;&gt;
         <mvc:message-converters register-defaults="false">
@@ -34,7 +37,6 @@
 
     <!--使用默认Servlet响应静态文件-->
     <mvc:default-servlet-handler/>
-
     <!--<mvc:resources mapping="js/**" location="/js/" order="0" cache-period="31556926" />-->
 
     <!-- 视图解析器 -->

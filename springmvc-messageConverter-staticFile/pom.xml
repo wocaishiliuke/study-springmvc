@@ -8,7 +8,7 @@
         <groupId>com.baicai.springmvc</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>springmvc-messageConverter-fileupload-interceptor</artifactId>
+    <artifactId>springmvc-messageConverter-staticFile</artifactId>
     <packaging>war</packaging>
 
     <dependencies>

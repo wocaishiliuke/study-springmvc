@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 测试JSON转换
+ */
 @Controller
 @RequestMapping(value = "/book")
 public class BookController {
@@ -40,7 +43,7 @@ public class BookController {
 
     @RequestMapping(value = "/list")
     public String list() {
-        return "list";
+        return "bookList";
     }
 
     @ResponseBody
