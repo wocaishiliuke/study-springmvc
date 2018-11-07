@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     /**
-     * 试图解析器
+     * 试图解析器，bean name需为viewResolver
      * @return
      */
     @Bean
@@ -32,6 +32,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
+
 
     //相当于<mvc:default-servlet-handler/>，处理静态资源
     /*@Override

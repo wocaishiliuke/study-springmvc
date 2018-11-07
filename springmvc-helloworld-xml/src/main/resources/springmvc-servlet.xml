@@ -3,12 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 默认配置的HandlerMapping和HandlerAdaptor在DispatcherServlet.properties中，也包括下面两个-->
+    <!-- XML配置Controller时，对应默认配置的HandlerMapping和HandlerAdaptor，可缺省（DispatcherServlet.properties） -->
     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
     <!-- 配置controller -->
-    <bean name="/hello" class="com.baicai.controller.elloController"></bean>
+    <bean name="/hello" class="com.baicai.controller.HelloController"></bean>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

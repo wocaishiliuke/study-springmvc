@@ -13,17 +13,31 @@
     <!-- 注解驱动 -->
     <mvc:annotation-driven />
 
+    <!-- 自定义拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截所有请求，排除文件上传的请求 -->
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/file/**"/>
+            <bean class="com.baicai.interceptor.AuthHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-    <!-- 上传文件MultipartResolver -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 上传文件大小上限，10M -->
+    <!-- 上传文件CommonsMultipartResolver -->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        &lt;!&ndash; 上传文件总大小上限，10M &ndash;&gt;
         <property name="maxUploadSize" value="10485760"/>
-        <!-- 请求的编码格式，需与JSP的pageEncoding一致，默认ISO-8859-1 -->
+        &lt;!&ndash; 上传文件每个大小上限，3M&ndash;&gt;
+        <property name="maxUploadSizePerFile" value="3145728"/>
+        &lt;!&ndash; 请求的编码格式，需与JSP的pageEncoding一致，默认ISO-8859-1 &ndash;&gt;
         <property name="defaultEncoding" value="UTF-8"/>
-    </bean>
+    </bean>-->
+    <!-- 上传文件StandardServletMultipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 </beans>
