@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!-- 驼峰匹配 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 类别名包扫描 -->
+    <typeAliases>
+        <package name="com.baicai.pojo"/>
+    </typeAliases>
+
+    <!-- 指定mapper映射文件（交由Spring指定） -->
+    <!--<mappers>
+        <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        &lt;!&ndash;<mapper url="file:///home/top/workspace/study-springmvc/ssm/src/main/resources/mybatis/mapper/UserMapper.xml"/>&ndash;&gt;
+        &lt;!&ndash; 下面两个读取不到，即使满足了3个条件也不行，原因待定 &ndash;&gt;
+        &lt;!&ndash;<mapper class="com.baicai.mapper.UserMapper"/>&ndash;&gt;
+        &lt;!&ndash;<package name="com.baicai.mapper"/>&ndash;&gt;
+    </mappers>-->
+</configuration>
