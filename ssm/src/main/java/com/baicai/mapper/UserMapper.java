@@ -1,12 +1,11 @@
 package com.baicai.mapper;
 
 import com.baicai.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
 public interface UserMapper {
 
     /**
